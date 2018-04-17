@@ -19,6 +19,28 @@ include 'dbConfig.php';
 $(document).ready(function() {
     $("#persons").tablesorter({widthFixed: true, widgets: ['zebra']}).tablesorterPager({container: $("#pager")});
 });
+
+function showPersonsInGroup(str) {
+    if (str == "") {
+        document.getElementById("personList").innerHTML = "";
+        return;
+    } else {
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("personList").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","/app/Models/Person.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
  </script>
 
 </head>
@@ -115,6 +137,25 @@ $(document).ready(function() {
                     </tbody>
                 </table>
             </div>
+            <div class="row">
+              <form>
+                <select name="personslist" onchange="showPersonsInGroup(this.value)">
+                  <option value="">Select a person:</option>
+                  <?php
+                      //get records from database
+                      $query = $db->query("SELECT * FROM groups ORDER BY group_id ASC");
+                      if($query->num_rows > 0){
+                          while($row = $query->fetch_assoc()){ ?>
+
+                <option value="<?php echo $row['group_id']; ?>"><?php echo $row['group_name']; ?></option>
+<?php } }else{ ?>
+                </select>
+                </form>
+                <p> There are no groups in the database currently
+                <?php } ?>
+
+              <br>
+              <div id="personList"><b>Person info will be listed here...</b></div>
         </div>
     </div>
 </body>
