@@ -8,21 +8,21 @@ class Group {
 		fgetcsv($file);
 		while(($getData = fgetcsv($file, 10000, ",")) !== FALSE){
 			$sql = "SELECT group_id, group_name FROM groups WHERE group_id = '".$getData[0]."'";
-            $result = mysqli_query($db, $sql);
-            //echo $result->num_rows;
-            if($result->num_rows > 0){
+      $result = mysqli_query($db, $sql);
+
+      if($result->num_rows > 0){
 				$sql1 = "UPDATE groups SET group_name = '".$getData[1]."'
         WHERE group_id = '".$getData[0]."'";
 				//echo "Does Exist";
 				$result1 = mysqli_query($db, $sql1);
 				if(!isset($result1))
 				{
-					return false;
+					echo false;
 
 				}
 				else
 				{
-					return True;
+					echo True;
 				}
 			}
 			else {
@@ -32,12 +32,12 @@ class Group {
 				$result2 = mysqli_query($db, $sql2);
 				if(!isset($result2))
 				{
-					return false;
+					echo false;
 
 				}
 				else
 				{
-					return True;
+					echo True;
 				}
 			}
 		}

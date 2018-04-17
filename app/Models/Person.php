@@ -18,12 +18,12 @@ class Person {
 				$result1 = mysqli_query($db, $sql1);
 				if(!isset($result1))
 				{
-					return false;
+					echo false;
 
 				}
 				else
 				{
-					return True;
+					echo True;
 				}
 			}
 			else {
@@ -34,12 +34,12 @@ class Person {
 				$result2 = mysqli_query($db, $sql2);
 				if(!isset($result2))
 				{
-					return false;
+					echo false;
 
 				}
 				else
 				{
-					return True;
+					echo True;
 				}
 			}
 		}

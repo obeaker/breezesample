@@ -13,7 +13,7 @@ class Util
   			$this->column_count = count($getData);
   		}
 
-        fclose($file);
+      fclose($file);
 	}
 
 	public function getColumnCount() {
