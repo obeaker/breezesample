@@ -1,47 +1,58 @@
 <?php
-
+use App\Models\Util;
 namespace App\Models;
 
 class Person {
 
+  public $message;
+
   public function dataSaveOrUpdate($file, $db) {
-		fgetcsv($file);
+    $util = new \App\Models\Util;
+		$arrays = fgetcsv($file);
+
+    $person_id = $util->getColumnLocation($arrays, "person_id");
+    $first_name = $util->getColumnLocation($arrays, "first_name");
+    $last_name = $util->getColumnLocation($arrays, "last_name");
+    $email_address = $util->getColumnLocation($arrays, "email_address");
+    $group_id = $util->getColumnLocation($arrays, "group_id");
+    $state = $util->getColumnLocation($arrays, "state");
 		while(($getData = fgetcsv($file, 10000, ",")) !== FALSE){
-			$sql = "SELECT first_name, last_name FROM persons WHERE person_id = '".$getData[0]."'";
+			$sql = "SELECT first_name, last_name FROM persons WHERE person_id = '".$getData[$person_id]."'";
             $result = mysqli_query($db, $sql);
             //echo $result->num_rows;
             if($result->num_rows > 0){
-				$sql1 = "UPDATE persons SET first_name = '".$getData[1]."', last_name = '".$getData[2]."',
-				email_address = '".$getData[3]."', group_id = '".$getData[4]."', state = '".$getData[5]."'
-				WHERE person_id = '".$getData[0]."'";
-				echo "Does Exist";
+				$sql1 = "UPDATE persons SET first_name = '".$getData[$first_name]."', last_name = '".$getData[$last_name]."',
+				email_address = '".$getData[$email_address]."', group_id = '".$getData[$group_id]."', state = '".$getData[$state]."'
+				WHERE person_id = '".$getData[$person_id]."'";
+
 				$result1 = mysqli_query($db, $sql1);
 				if(!isset($result1))
 				{
-					echo false;
+					$message =  false;
 
 				}
 				else
 				{
-					echo True;
+					$message =  True;
 				}
 			}
 			else {
 				$sql2 = "INSERT INTO persons (person_id,first_name,last_name,email_address,group_id,state)
-				VALUES ('".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4].
-					"','".$getData[5]."')";
-				echo "Does Not Exist";
+				VALUES ('".$getData[$person_id]."','".$getData[$first_name]."','".$getData[$last_name]."','".$getData[$email_address]."','".$getData[$group_id].
+					"','".$getData[$state]."')";
+
 				$result2 = mysqli_query($db, $sql2);
 				if(!isset($result2))
 				{
-					echo false;
+					$message =  false;
 
 				}
 				else
 				{
-					echo True;
+					$message =  True;
 				}
 			}
 		}
+    return $message;
 	}
 }

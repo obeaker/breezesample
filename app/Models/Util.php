@@ -19,4 +19,8 @@ class Util
 	public function getColumnCount() {
 		return $this->column_count;
 	}
+
+  public function getColumnLocation($arrays, $column){
+    return array_search($column,$arrays);
+  }
 }

@@ -17,7 +17,7 @@ include 'dbConfig.php';
 <link rel="stylesheet" href="css/table.css">
  <script type="text/javascript">
 $(document).ready(function() {
-    $("#persons").tablesorter({widthFixed: true, widgets: ['zebra']}).tablesorterPager({container: $("#pager")});
+    $("#persons").tablesorter({widthFixed: true});
 });
 
 function showPersonsInGroup(str) {
@@ -37,7 +37,7 @@ function showPersonsInGroup(str) {
                 document.getElementById("personList").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET","/app/Models/Person.php?q="+str,true);
+        xmlhttp.open("GET","getPeopleList.php?q="+str,true);
         xmlhttp.send();
     }
 }
@@ -56,7 +56,7 @@ function showPersonsInGroup(str) {
             <div class="row">
 
                 <form class="form-horizontal" action="import.php" method="post" name="upload_excel" enctype="multipart/form-data">
-                  <table id="import" cellspacing="0" cellpadding="0" class="breeze table table-bordered">
+                  <table id="import" cellspacing="0" style="width: 50%;margin: 0px;" cellpadding="0" class="breeze table table-bordered">
                       <thead>
                           <tr>
                             <th></th>
@@ -114,7 +114,7 @@ function showPersonsInGroup(str) {
               <p>
                 <h4>Imported Groups Table </h4>
               </p>
-                <table id="Groups" cellspacing="0" cellpadding="0" class="breeze table table-bordered">
+                <table id="Groups" cellspacing="0" style="width: 50%;margin: 0px;" cellpadding="0" class="breeze table table-bordered">
                     <thead>
                         <tr>
                           <th>Group ID</th>
@@ -137,9 +137,13 @@ function showPersonsInGroup(str) {
                     </tbody>
                 </table>
             </div>
+            <br>
             <div class="row">
+              <p>
+                <h4>Get List of Persons by Group Table </h4>
+              </p>
               <form>
-                <select name="personslist" onchange="showPersonsInGroup(this.value)">
+                <select name="personslists" onchange="showPersonsInGroup(this.value)">
                   <option value="">Select a person:</option>
                   <?php
                       //get records from database
@@ -148,14 +152,16 @@ function showPersonsInGroup(str) {
                           while($row = $query->fetch_assoc()){ ?>
 
                 <option value="<?php echo $row['group_id']; ?>"><?php echo $row['group_name']; ?></option>
-<?php } }else{ ?>
-                </select>
+<?php }} ?></select>
+
                 </form>
-                <p> There are no groups in the database currently
-                <?php } ?>
+
 
               <br>
               <div id="personList"><b>Person info will be listed here...</b></div>
+        </div>
+        <div class="row">
+          <br><br>
         </div>
     </div>
 </body>

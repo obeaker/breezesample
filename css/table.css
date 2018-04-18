@@ -1,6 +1,11 @@
+@media (min-width: 1200px)
+.container {
+    width: 1024px;
+}
+
 .breeze {
   margin: 0 auto;
-  font-size: 1.2em;
+  font-size: 14px;
   margin-bottom: 15px;
 }
 
@@ -11,7 +16,7 @@
 
 .breeze thead tr th {
   font-weight: bold;
-  padding: 12px 30px;
+  padding: 9px 30px;
   padding-left: 42px;
 }
 
@@ -39,7 +44,7 @@
 
 .breeze tbody tr td {
   text-align: center;
-  padding: 15px 10px;
+  padding: 9px 5px;
 }
 
 .breeze tbody tr td.lalign {
