@@ -53,39 +53,39 @@
 </style>
 </head>
 <body>
-<?php
-include 'dbConfig.php';
-$q = intval($_GET['q']);
+  <?php
+  include 'dbConfig.php';
+  $q = intval($_GET['q']);
 
-$sql="SELECT * FROM persons WHERE state = 'active' and group_id = '".$q."'";
-$result = mysqli_query($db,$sql);
+  $sql="SELECT * FROM persons WHERE state = 'active' and group_id = '".$q."'";
+  $result = mysqli_query($db,$sql);
 
-echo "<table class='breeze table table-bordered'>
-<tr>
-<th>Person ID</th>
-<th>First Name</th>
-<th>Last Name</th>
-<th>Email Address</th>
-<th>Group ID</th>
-<th>State</th>
-</tr>";
-if($result->num_rows > 0){
-while($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
-    echo "<td>" . $row['person_id'] . "</td>";
-    echo "<td>" . $row['first_name'] . "</td>";
-    echo "<td>" . $row['last_name'] . "</td>";
-    echo "<td>" . $row['email_address'] . "</td>";
-    echo "<td>" . $row['group_id'] . "</td>";
-    echo "<td>" . $row['state'] . "</td>";
-    echo "</tr>";
-} }else{
-  echo "<tr>";
-  echo "<td colspan='6'>There are no active persons for this group</td>";
-  echo "</tr>";
-}
-echo "</table>";
-mysqli_close($db);
-?>
-</body>
+  echo "<table class='breeze table table-bordered'>
+  <tr>
+  <th>Person ID</th>
+  <th>First Name</th>
+  <th>Last Name</th>
+  <th>Email Address</th>
+  <th>Group ID</th>
+  <th>State</th>
+  </tr>";
+  if($result->num_rows > 0){
+    while($row = mysqli_fetch_array($result)) {
+      echo "<tr>";
+      echo "<td>" . $row['person_id'] . "</td>";
+      echo "<td>" . $row['first_name'] . "</td>";
+      echo "<td>" . $row['last_name'] . "</td>";
+      echo "<td>" . $row['email_address'] . "</td>";
+      echo "<td>" . $row['group_id'] . "</td>";
+      echo "<td>" . $row['state'] . "</td>";
+      echo "</tr>";
+    } }else{
+      echo "<tr>";
+      echo "<td colspan='6'>There are no active persons for this group</td>";
+      echo "</tr>";
+    }
+    echo "</table>";
+    mysqli_close($db);
+    ?>
+  </body>
 </html>

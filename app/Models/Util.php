@@ -12,8 +12,9 @@ class Util
   		for ($a =0; $a<1; $a++){
   			$this->column_count = count($getData);
   		}
-
       fclose($file);
+
+      return $getData;
 	}
 
 	public function getColumnCount() {
